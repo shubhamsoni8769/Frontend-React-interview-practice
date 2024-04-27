@@ -1,0 +1,39 @@
+.item {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
+.circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.closeIcon{
+    width: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2 ease;
+    opacity: 0;
+
+}
+.item:hover .closeIcon{
+    opacity: 1;
+}
+
+.strike {
+    text-decoration: line-through
+}
+
+input {
+    padding: 5px;
+    width: 100%;
+    font: 1.2rem;
+}

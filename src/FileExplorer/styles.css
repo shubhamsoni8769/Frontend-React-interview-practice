@@ -1,0 +1,30 @@
+.folder {
+    margin: 5px;
+    background-color: rgb(233,233,233);
+    padding:3px;
+    width: 300px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+
+.folder > span {
+    margin: 0 5px 2px 0;;
+}
+
+.file {
+    display: flex;
+    flex-direction: column;
+}
+.file > div > button {
+    padding: 5px;
+}
+
+.inputContainer__input {
+    padding: 5px;
+    margin-top: 0px;
+    
+}
+.inputContainer > span {
+    margin-top: 5px;
+}
