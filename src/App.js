@@ -15,6 +15,7 @@ import { TabsExample } from "./Tabs";
 import { FeatureFlagComponent } from "./FeatureFlag/Features";
 import { TicTacToe } from "./tic-tac-toe";
 import SnakeAndLadder from "./SnakeLadder";
+import GridLight from "./GridLight";
 
 const LazyCustomMemo = React.lazy(() => import("./CustomUseMemo/CustomMemo"));
 function App() {
@@ -36,6 +37,8 @@ function App() {
             <Route path="/todo" element={<ToDo />} />
             <Route path="/tic-tac-toe" element={<TicTacToe />} />
             <Route path="/snake-and-ladder" element={<SnakeAndLadder />} />
+            <Route path="/grid-light" element={<GridLight />} />
+            
 
             
 
