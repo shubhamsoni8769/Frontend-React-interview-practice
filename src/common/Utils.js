@@ -17,3 +17,5 @@ export const fetchUsers = async (searchStr) => {
     }, 1000)
   );
 };
+
+
