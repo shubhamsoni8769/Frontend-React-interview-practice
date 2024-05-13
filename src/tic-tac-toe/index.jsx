@@ -1,90 +1,106 @@
-import React, { useState } from 'react';
-import './index.css'; // Import the CSS file
+import React, { useRef, useState } from "react";
+import "./index.css"; // Import the CSS file
 
-export const TicTacToe = () => {
-  const size = 5; // Change this to adjust the board size
-  const initialBoard = Array(size).fill(Array(size).fill(null));
-  const [board, setBoard] = useState(initialBoard);
-  const [player, setPlayer] = useState('X');
+const Cell = React.memo(({ row, rowIndex, handleUpdate }) => {
+  return row.map((col, colIndex) => {
+    return (
+      <div
+        key={colIndex}
+        className="cell"
+        onClick={(e) => {
+          handleUpdate(e, rowIndex, colIndex);
+        }}
+      >
+        {col ? col : ""}
+      </div>
+    );
+  });
+});
 
 
-  const getWinner = () => {
-    const rowCountX = Array(size).fill(0);
-    const rowCountO = Array(size).fill(0);
-    const colCountX = Array(size).fill(0);
-    const colCountO = Array(size).fill(0);
-    let diag1X = 0;
-    let diag1O = 0;
-    let diag2X = 0;
-    let diag2O = 0;
+export const Board = ({ size }) => {
+  const [board, setBaord] = useState(
+    [...new Array(size)].map((ele) => new Array(size).fill(""))
+  );
+  const winner = useRef(false);
+  const [currentPlayer, setCurrentPlayer] = useState("X");
 
-    for (let i = 0; i < size; i++) {
-      for (let j = 0; j < size; j++) {
-        if (board[i][j] === 'X') {
-          rowCountX[i]++;
-          colCountX[j]++;
-          if (i === j) diag1X++;
-          if (i + j === size - 1) diag2X++;
-        } else if (board[i][j] === 'O') {
-          rowCountO[i]++;
-          colCountO[j]++;
-          if (i === j) diag1O++;
-          if (i + j === size - 1) diag2O++;
-        }
+  const getWinner = (board, rowI, colI) => {
+    const checkRow = (arr) => {
+      console.log(arr);
+      return arr.every((ele, index) => ele !== "" && ele === arr[0]);
+    };
+    //check row
+    if (checkRow(board[rowI])) {
+      return true;
+    }
+
+    //check col
+    const col = board.map((row, index) => board[index][colI]);
+    if (checkRow(col)) {
+      console.log("Col");
+
+      return true;
+    }
+
+    if (rowI === colI) {
+      //check \ diagonal
+      const diagonalRight = board.map((row, index) => row[index]);
+      if (checkRow(diagonalRight)) {
+        return true;
+      }
+
+      // check / digonal
+      const diagonalLeft = board.map((row, index) => row[size-index -1]);
+      if (checkRow(diagonalLeft)) {
+        return true;
       }
     }
 
-    for (let i = 0; i < size; i++) {
-      if (rowCountX[i] === size || colCountX[i] === size) return 'X';
-      if (rowCountO[i] === size || colCountO[i] === size) return 'O';
-    }
-    if (diag1X === size || diag2X === size) return 'X';
-    if (diag1O === size || diag2O === size) return 'O';
-
-    return null;
+    return false;
   };
 
-  const handleClick = (row, col) => {
-    if (board[row][col] || getWinner()) {
-      return;
+  const handleUpdate = (e, rowI, colI) => {
+
+    if (board[rowI][colI] || winner.current) return;
+    const newBoard = board.map((row) => row.slice());
+    newBoard[rowI][colI] = currentPlayer;
+
+    if (getWinner(newBoard , rowI, colI)) {
+      winner.current = true;
+    } else {
+      setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
     }
+    setBaord(newBoard)
 
-    const newBoard = board.map((rowArray, rowIndex) =>
-      rowArray.map((cell, colIndex) =>
-        rowIndex === row && colIndex === col ? player : cell
-      )
-    );
-    console.log(board);
-
-    setBoard(newBoard);
-    setPlayer(player === 'X' ? 'O' : 'X');
   };
 
-  const renderCell = (row, col) => (
-    <div key={`${row}-${col}`} className="cell1" onClick={() => handleClick(row, col)}>
-      {board[row][col]}
-    </div>
-  );
-
-  const renderRow = (row, index) => (
-    <div key={index} className="row">
-      {row.map((_, colIndex) => renderCell(index, colIndex))}
-    </div>
-  );
-
-  const winner = getWinner();
+  const handleReset = () => {
+    const newBoard = board.map((row) => row.slice());
+    setBaord(newBoard)
+  };
 
   return (
-    <div className="game">
-      <h1>Tic Tac Toe</h1>
-      <div className="board">
-        {board.map((row, index) => renderRow(row, index))}
-      </div>
-      {winner && <div className="winner">Winner: {winner}</div>}
+    <div className="board">
+      {board.map((row, index) => {
+        return (
+          <div className="row" key={index}>
+            <Cell
+              row={row}
+              rowIndex={index}
+              handleUpdate={handleUpdate}
+            />
+          </div>
+        );
+      })}
+      <button onClick={handleReset}>Reset</button>
+      {winner.current && <div>Winner: {currentPlayer}</div>}
     </div>
   );
 };
 
-
+export const TicTacToe = () => {
+  return <Board size={5} />;
+};
 
 // TicTacToe -> Board -> square

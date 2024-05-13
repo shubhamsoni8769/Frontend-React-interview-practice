@@ -1,4 +1,4 @@
-.game {
+/* .game {
     font-family: Arial, sans-serif;
     text-align: center;
   }
@@ -34,5 +34,23 @@
     font-size: 24px;
     font-weight: bold;
     margin-top: 20px;
+  } */
+
+
+
+  /* ---------- */
+  .board {
+    /* //try with grid also */
+    /* display: flex; */
+    /* max-width: 130px; */
+  }
+  .row {
+    display: flex;
+  }
+  .cell {
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    text-align: center;
   }
   

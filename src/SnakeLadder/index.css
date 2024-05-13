@@ -1,0 +1,17 @@
+.board {
+    margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  border: 2px solid black;
+  column-gap: 2px;
+  row-gap: 2px;
+}
+.row {
+  display: contents;
+}
+.cell {
+
+  border: 1px solide black;
+  text-align: center;
+}
