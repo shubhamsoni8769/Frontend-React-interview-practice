@@ -1,65 +1,60 @@
-import { useEffect, useState, useContext } from "react";
-import { NotificationContext } from "./context/NotificationProvider";
+import { useEffect, useRef, useState } from "react";
 import { useNotification } from "./context/NotificationProvider";
 
-const Notification = (props) => {
-    const { type, message, title, id } = props;
-    const [barWidth, setBarWidth] = useState(0);
-    const dispatch = useNotification();
+const Notification = ({ type, message, id }) => {
+  const [barWidth, setBarWidth] = useState(0);
+  const dispatch = useNotification();
+  const timerId = useRef(null);
+  const startTimer = () => {
+    timerId.current = setInterval(() => {
+      setBarWidth((prevWidth) => {
+        if (prevWidth < 100) {
+          return prevWidth + 1;
+        } else {
+          clearInterval(timerId);
+          handleCloseNotification();
+          return prevWidth;
+        }
+      });
+    }, 50);
+  };
 
-    const startTimer = () => {
-        const timerId = setInterval(() => {
-            setBarWidth((prevWidth) => {
-                if (prevWidth < 100) {
-                    return prevWidth + 1
-                } else {
-                    clearInterval(timerId);
-                    handleCloseNotification()
-                    return prevWidth
+  const handleCloseNotification = () => {
+    setTimeout(() => {
+      dispatch({
+        type: "REMOVE_NOTIFICATION",
+        id,
+      });
+    }, 400);
+  };
 
-                }
-            })
-        }, 20)
-    }
+  const pauseTimer = () => {
+    clearInterval(timerId.current);
+  };
 
-    const handleCloseNotification = () => {
-        console.log("calling handleCloseNotification");
-        setTimeout(() => {
-            dispatch({
-                type: "REMOVE_NOTIFICATION",
-                id
-            });
-        }, 400);
+  const handleMouseLeave = () => {
+    startTimer();
+  };
 
-    }
+  useEffect(() => {
+    startTimer();
+    return () => {
+      clearInterval(timerId.current);
+    };
+  }, []);
 
-    const pauseTimer = () => {
+  return (
+    <div
+      onMouseEnter={pauseTimer}
+      onMouseLeave={handleMouseLeave}
+      className={`notification-item ${
+        type === "SUCCESS" ? "success" : "error"
+      }`}
+    >
+      <span>{message}</span>
+      <div className="bar" style={{ width: `${barWidth}%` }}></div>
+    </div>
+  );
+};
 
-    }
-
-    const handleMouseLeave = () => {
-
-    }
-
-    useEffect(() => {
-        startTimer()
-    }, [])
-
-    return (
-        <div
-            onMouseEnter={pauseTimer}
-            onMouseLeave={handleMouseLeave}
-            className={`notification-item ${type === "SUCCESS" ? 'success' : 'error'}`}
-        >
-            <span>{message}</span>
-            <div className="bar" style={{ width: `${barWidth}%` }}></div>
-
-
-        </div>
-    )
-
-
-
-}
-
-export default Notification
+export default Notification;
