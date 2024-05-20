@@ -16,6 +16,7 @@ import { FeatureFlagComponent } from "./FeatureFlag/Features";
 import { TicTacToe } from "./tic-tac-toe";
 import SnakeAndLadder from "./SnakeLadder";
 import GridLight from "./GridLight";
+import NotificationWrapper from "./Notification";
 
 const LazyCustomMemo = React.lazy(() => import("./CustomUseMemo/CustomMemo"));
 function App() {
@@ -38,11 +39,7 @@ function App() {
             <Route path="/tic-tac-toe" element={<TicTacToe />} />
             <Route path="/snake-and-ladder" element={<SnakeAndLadder />} />
             <Route path="/grid-light" element={<GridLight />} />
-            
-
-            
-
-            
+            <Route path="/notification" element={<NotificationWrapper />} />
           </Route>
         </Routes>
       </Suspense>
