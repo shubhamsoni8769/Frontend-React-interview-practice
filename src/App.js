@@ -17,6 +17,7 @@ import { TicTacToe } from "./tic-tac-toe";
 import SnakeAndLadder from "./SnakeLadder";
 import GridLight from "./GridLight";
 import NotificationWrapper from "./Notification";
+import Chart from "./jiraChart/BarCharts";
 
 const LazyCustomMemo = React.lazy(() => import("./CustomUseMemo/CustomMemo"));
 function App() {
@@ -40,10 +41,12 @@ function App() {
             <Route path="/snake-and-ladder" element={<SnakeAndLadder />} />
             <Route path="/grid-light" element={<GridLight />} />
             <Route path="/notification" element={<NotificationWrapper />} />
+            <Route path="/chart" element={<Chart />} />
           </Route>
         </Routes>
       </Suspense>
     </Router>
+
   );
 }
 
