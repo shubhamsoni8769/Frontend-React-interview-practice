@@ -18,6 +18,7 @@ import SnakeAndLadder from "./SnakeLadder";
 import GridLight from "./GridLight";
 import NotificationWrapper from "./Notification";
 import Chart from "./jiraChart/BarCharts";
+import TypeHead from "./Typehead";
 
 const LazyCustomMemo = React.lazy(() => import("./CustomUseMemo/CustomMemo"));
 function App() {
@@ -42,6 +43,7 @@ function App() {
             <Route path="/grid-light" element={<GridLight />} />
             <Route path="/notification" element={<NotificationWrapper />} />
             <Route path="/chart" element={<Chart />} />
+            <Route path="/typehead" element={<TypeHead />} />
           </Route>
         </Routes>
       </Suspense>

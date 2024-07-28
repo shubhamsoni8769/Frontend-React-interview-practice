@@ -1,0 +1,10 @@
+.container_search_bar_wrapper {
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    width: 100wh;
+    height: 100vh;
+}
+.active {
+    background-color: red;
+}
