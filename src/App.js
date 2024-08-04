@@ -19,6 +19,7 @@ import GridLight from "./GridLight";
 import NotificationWrapper from "./Notification";
 import Chart from "./jiraChart/BarCharts";
 import TypeHead from "./Typehead";
+import Board from "./CircleGame/Board";
 
 const LazyCustomMemo = React.lazy(() => import("./CustomUseMemo/CustomMemo"));
 function App() {
@@ -44,6 +45,7 @@ function App() {
             <Route path="/notification" element={<NotificationWrapper />} />
             <Route path="/chart" element={<Chart />} />
             <Route path="/typehead" element={<TypeHead />} />
+            <Route path="/circle" element={<Board/>} />
           </Route>
         </Routes>
       </Suspense>
