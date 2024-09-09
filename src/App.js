@@ -20,6 +20,7 @@ import NotificationWrapper from "./Notification";
 import Chart from "./jiraChart/BarCharts";
 import TypeHead from "./Typehead";
 import Board from "./CircleGame/Board";
+import OverlapingCircle from "./overlppingCircle";
 
 const LazyCustomMemo = React.lazy(() => import("./CustomUseMemo/CustomMemo"));
 function App() {
@@ -46,6 +47,7 @@ function App() {
             <Route path="/chart" element={<Chart />} />
             <Route path="/typehead" element={<TypeHead />} />
             <Route path="/circle" element={<Board/>} />
+            <Route path="/overlappingCircle" element={<OverlapingCircle/>} />
           </Route>
         </Routes>
       </Suspense>
